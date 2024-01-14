@@ -110,6 +110,14 @@ bool is_full(const queue* que) {
 	return false;
 }
 
+void clear(queue** que) {
+	while (!is_empty(*que)) {
+		dequeue(*que);
+	}
+	free(*que);
+	*que = NULL;
+}
+
 // main 함수 GPT에게
 int main() {
 	queue* myQueue = create();  // 큐 생성
@@ -127,7 +135,7 @@ int main() {
 
 		case '-':
 			if (!is_empty(myQueue)) {
-				printf("Dequeue: %c\n", peek(myQueue));
+				printf("Dequeue: %d\n", peek(myQueue));
 				dequeue(myQueue);
 			}
 			else {
@@ -156,9 +164,18 @@ int main() {
 			printf("Is Empty: %s\n", is_empty(myQueue) ? "true" : "false");
 			break;
 
+		case '#':
+			printf("Size: %d\n", size(myQueue));
+			break;
+
 		case '0':
 			printf("Exiting the program.\n");
 			// Additional tasks like memory deallocation can be performed here if needed
+			return 0;
+
+		case 'C':
+			clear(&myQueue);
+			printf("Queue cleared.\n");
 			return 0;
 
 		default:
